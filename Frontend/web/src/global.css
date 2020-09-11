@@ -1,0 +1,30 @@
+:root {
+    --main-color: #6a2bb4;
+    --main-color-light: #8d5ac9;
+    --gray-color: #656565;
+    --gray-color-light: #b9b9b9;
+    --gray-text-light: #757575;
+    --light-bg: #faf5ff;
+    --black: #000000;
+    --white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    box-sizing: border-box;
+}
+
+.center {
+    width: 94%;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+html,
+body {
+    font-family: "Roboto", sans-serif;
+}
+
+/* font-family: 'Roboto Condensed', sans-serif; */
