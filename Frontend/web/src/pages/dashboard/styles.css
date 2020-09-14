@@ -1,0 +1,33 @@
+#root {
+    background: var(--light-bg);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 25px 0;
+}
+
+header h1 {
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--black);
+}
+
+header a {
+    /* height: 50px; */
+    color: var(--white);
+    font-size: 20px;
+    background: var(--main-color);
+    text-decoration: none;
+    padding: 12px 40px;
+    border-radius: 50px;
+    transition: all 0.3s;
+}
+
+header a:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}

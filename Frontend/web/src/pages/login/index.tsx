@@ -10,9 +10,10 @@ function login() {
         <div className="bigcontainer">
             <div className="left_container">
                 <form className="form">
-                    <h1>Register.</h1>
+                    <h1>Log in.</h1>
                     <p>
-                        Enter your information to create your personal account.
+                        log in with your information entered during your
+                        registrations.
                     </p>
                     <div className="group-form">
                         <label htmlFor="email">Your e-mail</label>
@@ -22,7 +23,7 @@ function login() {
                         <label htmlFor="pass">Password</label>
                         <input type="password" name="pass" />
                     </div>
-                    <button type="submit">Register</button>
+                    <button type="submit">Log in</button>
                 </form>
                 <Link className="signup" to="/register">
                     Don't have an account? <span>Sign up</span>
