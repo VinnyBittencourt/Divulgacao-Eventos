@@ -1,6 +1,13 @@
-#root {
+body {
     background: var(--light-bg);
+    height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    background-attachment: fixed;
 }
+
+/* #root {
+    background: var(--light-bg);
+} */
 
 header {
     display: flex;
@@ -30,4 +37,64 @@ header a {
 header a:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card_container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    width: 360px;
+    text-align: center;
+    padding: 30px 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    margin: 0 7px 15px;
+    position: relative;
+}
+
+.trash-ico {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    /* color: var(--gray-text-light); */
+    opacity: 0.3;
+    cursor: pointer;
+}
+
+.card img {
+    margin-bottom: 50px;
+    width: 153px;
+    height: 153px;
+    border-radius: 50%;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+}
+
+.card h2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.card_text {
+    font-size: 16px;
+    line-height: 22px;
+    color: var(--gray-text-light);
+    margin-bottom: 25px;
+}
+
+.box-card {
+    display: flex;
+    align-items: center;
+}
+
+.box-card svg {
+    margin-right: 5px;
 }

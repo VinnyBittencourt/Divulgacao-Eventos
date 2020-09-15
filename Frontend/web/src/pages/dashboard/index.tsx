@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { FiMapPin } from "react-icons/fi";
+import { FiMapPin, FiTrash2 } from "react-icons/fi";
 
-import bigimg from "../../assets/happy-bunch.png";
+import imgfestival from "../../assets/download.jpg";
 
 import "./styles.css";
 
@@ -15,7 +15,7 @@ function login() {
             </header>
             <div className="card_container">
                 <div className="card">
-                    <img src="" alt="Event" />
+                    <img src={imgfestival} alt="Event" />
                     <h2>Festival</h2>
                     <p className="card_text">
                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -28,6 +28,7 @@ function login() {
                         <FiMapPin></FiMapPin>
                         <p>RJ, Brazil</p>
                     </div>
+                    <FiTrash2 className="trash-ico"></FiTrash2>
                 </div>
             </div>
         </div>
