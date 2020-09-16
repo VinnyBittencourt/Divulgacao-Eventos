@@ -11,7 +11,9 @@ function login() {
         <div className="center dashboard_container">
             <header>
                 <h1>All Events</h1>
-                <Link to="/newevent">New event</Link>
+                <Link className="Link_event" to="/newevent">
+                    New event
+                </Link>
             </header>
             <div className="card_container">
                 <div className="card">

@@ -23,7 +23,7 @@ header h1 {
     color: var(--black);
 }
 
-header a {
+header .Link_event {
     /* height: 50px; */
     color: var(--white);
     font-size: 20px;
@@ -34,7 +34,7 @@ header a {
     transition: all 0.3s;
 }
 
-header a:hover {
+header .Link_event:hover {
     transform: scale(1.02);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
