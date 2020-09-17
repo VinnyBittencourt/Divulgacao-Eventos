@@ -5,12 +5,11 @@ import {
     TableForeignKey,
 } from "typeorm";
 
-export default class CriarAgendamentos1598641359097
-    implements MigrationInterface {
+export default class CriarEventos1598641359097 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "agendamentos",
+                name: "events",
                 columns: [
                     {
                         name: "id",
@@ -20,14 +19,33 @@ export default class CriarAgendamentos1598641359097
                         default: "uuid_generate_v4()",
                     },
                     {
-                        name: "prestador_servico_id",
+                        name: "evento_id",
                         type: "uuid",
                         isNullable: true,
                     },
                     {
-                        name: "data",
-                        type: "timestamp with time zone",
-                        isUnique: true,
+                        name: "nome",
+                        type: "varchar",
+                    },
+                    {
+                        name: "place",
+                        type: "varchar",
+                    },
+                    {
+                        name: "likes",
+                        type: "integer",
+                    },
+                    {
+                        name: "dislikes",
+                        type: "integer",
+                    },
+                    {
+                        name: "file",
+                        type: "varchar",
+                    },
+                    {
+                        name: "bio",
+                        type: "varchar",
                     },
                     {
                         name: "created_at",
@@ -44,9 +62,9 @@ export default class CriarAgendamentos1598641359097
         );
 
         await queryRunner.createForeignKey(
-            "agendamentos",
+            "usuarios",
             new TableForeignKey({
-                columnNames: ["prestador_servico_id"],
+                columnNames: ["evento_id"],
                 referencedColumnNames: ["id"],
                 referencedTableName: "usuarios",
                 onDelete: "SET NULL",
@@ -56,6 +74,6 @@ export default class CriarAgendamentos1598641359097
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("agendamentos");
+        await queryRunner.dropTable("events");
     }
 }

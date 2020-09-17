@@ -1,6 +1,6 @@
 import { getRepository } from "typeorm";
 import { startOfHour, parseISO } from "date-fns"; //ParseISO converte string para date, StartOfHour pega a hora do date e zera os min e segs
-import Agendamentos from "../models/Agendamentos";
+import Agendamentos from "../models/Eventos";
 
 interface Request {
     prestador_servico_id: string;
