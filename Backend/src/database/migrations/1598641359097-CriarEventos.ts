@@ -19,12 +19,12 @@ export default class CriarEventos1598641359097 implements MigrationInterface {
                         default: "uuid_generate_v4()",
                     },
                     {
-                        name: "evento_id",
+                        name: "criador_evento_id",
                         type: "uuid",
                         isNullable: true,
                     },
                     {
-                        name: "nome",
+                        name: "name",
                         type: "varchar",
                     },
                     {
@@ -40,7 +40,7 @@ export default class CriarEventos1598641359097 implements MigrationInterface {
                         type: "integer",
                     },
                     {
-                        name: "file",
+                        name: "picture_used",
                         type: "varchar",
                     },
                     {
@@ -62,9 +62,9 @@ export default class CriarEventos1598641359097 implements MigrationInterface {
         );
 
         await queryRunner.createForeignKey(
-            "usuarios",
+            "events",
             new TableForeignKey({
-                columnNames: ["evento_id"],
+                columnNames: ["criador_evento_id"],
                 referencedColumnNames: ["id"],
                 referencedTableName: "usuarios",
                 onDelete: "SET NULL",
