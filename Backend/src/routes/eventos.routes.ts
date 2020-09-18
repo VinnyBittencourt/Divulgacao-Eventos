@@ -45,4 +45,28 @@ eventosRouter.get("/", async (req, res) => {
     }
 });
 
+eventosRouter.delete("/:id", async (req, res) => {
+    const usuariosRepositorio = getRepository(events);
+    const { id } = req.params;
+    const { usuario_logged } = req.body;
+
+    const repo = await usuariosRepositorio.findOne(id);
+
+    if (repo) {
+        if (repo.criador_evento_id == usuario_logged) {
+            await usuariosRepositorio.delete(id);
+
+            return res.status(200).json(id);
+        } else {
+            return res.status(400).json({
+                Error: "Only the creator of the event can delete the event",
+            });
+        }
+    } else {
+        return res.status(400).json({
+            Error: "Event not found",
+        });
+    }
+});
+
 export default eventosRouter;
