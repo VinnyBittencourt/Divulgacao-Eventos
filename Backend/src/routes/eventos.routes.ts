@@ -8,7 +8,7 @@ eventosRouter.post("/", async (req, res) => {
     try {
         const { criador_evento_id, name, place, picture_used, bio } = req.body;
         const eventosController = new EventosController();
-        const agendamento = await eventosController.store({
+        const evento = await eventosController.store({
             criador_evento_id,
             name,
             place,
@@ -16,7 +16,7 @@ eventosRouter.post("/", async (req, res) => {
             bio,
         });
 
-        return res.status(200).json(agendamento);
+        return res.status(200).json(evento);
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

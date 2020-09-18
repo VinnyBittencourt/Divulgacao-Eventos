@@ -22,19 +22,23 @@ class EventosController {
         // if (encontrarAgendamentoMesmaData) {
         //     throw new Error("Eventos já cadastrado para este horário");
         // }
-        const eventos = eventosRespository.create({
-            criador_evento_id,
-            name,
-            place,
-            picture_used,
-            bio,
-            likes: 0,
-            dislikes: 0,
-        });
+        try {
+            const eventos = eventosRespository.create({
+                criador_evento_id,
+                name,
+                place,
+                picture_used,
+                bio,
+                likes: 0,
+                dislikes: 0,
+            });
 
-        await eventosRespository.save(eventos);
+            await eventosRespository.save(eventos);
 
-        return eventos;
+            return eventos;
+        } catch (error) {
+            throw new Error("Ops");
+        }
     }
 }
 
