@@ -1,26 +1,36 @@
 import { getRepository } from "typeorm";
-import { startOfHour, parseISO } from "date-fns"; //ParseISO converte string para date, StartOfHour pega a hora do date e zera os min e segs
 import Eventos from "../models/Eventos";
 
 interface Request {
-    prestador_servico_id: string;
-    data: string;
+    criador_evento_id: string;
+    name: string;
+    place: string;
+    picture_used: string;
+    bio: string;
 }
 
-class AgendamentosController {
+class EventosController {
     public async store({
-        prestador_servico_id,
-        data,
+        criador_evento_id,
+        name,
+        place,
+        picture_used,
+        bio,
     }: Request): Promise<Eventos> {
-        const dataPassada = startOfHour(parseISO(data));
         const eventosRespository = getRepository(Eventos);
-        const encontrarAgendamentoMesmaData = await eventosRespository.findOne({
-            where: { data: dataPassada },
+
+        // if (encontrarAgendamentoMesmaData) {
+        //     throw new Error("Eventos já cadastrado para este horário");
+        // }
+        const eventos = eventosRespository.create({
+            criador_evento_id,
+            name,
+            place,
+            picture_used,
+            bio,
+            likes: 0,
+            dislikes: 0,
         });
-        if (encontrarAgendamentoMesmaData) {
-            throw new Error("Eventos já cadastrado para este horário");
-        }
-        const eventos = eventosRespository.create({});
 
         await eventosRespository.save(eventos);
 
@@ -28,4 +38,4 @@ class AgendamentosController {
     }
 }
 
-export default AgendamentosController;
+export default EventosController;

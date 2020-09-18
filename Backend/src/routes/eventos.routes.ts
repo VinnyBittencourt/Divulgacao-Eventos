@@ -6,11 +6,14 @@ const eventosRouter = Router();
 
 eventosRouter.post("/", async (req, res) => {
     try {
-        const { prestador_servico_id, data } = req.body;
-        const agendamentosController = new EventosController();
-        const agendamento = await agendamentosController.store({
-            prestador_servico_id,
-            data,
+        const { criador_evento_id, name, place, picture_used, bio } = req.body;
+        const eventosController = new EventosController();
+        const agendamento = await eventosController.store({
+            criador_evento_id,
+            name,
+            place,
+            picture_used,
+            bio,
         });
 
         return res.status(200).json(agendamento);
