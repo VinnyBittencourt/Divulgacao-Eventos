@@ -1,13 +1,13 @@
 import { Router } from "express";
 
-import AgendamentosController from "../app/controllers/AgendamentoController";
+import EventosController from "../app/controllers/EventosController";
 
-const agendamentosRouter = Router();
+const eventosRouter = Router();
 
-agendamentosRouter.post("/", async (req, res) => {
+eventosRouter.post("/", async (req, res) => {
     try {
         const { prestador_servico_id, data } = req.body;
-        const agendamentosController = new AgendamentosController();
+        const agendamentosController = new EventosController();
         const agendamento = await agendamentosController.store({
             prestador_servico_id,
             data,
@@ -19,4 +19,4 @@ agendamentosRouter.post("/", async (req, res) => {
     }
 });
 
-export default agendamentosRouter;
+export default eventosRouter;
