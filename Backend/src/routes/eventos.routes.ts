@@ -1,6 +1,8 @@
 import { Router } from "express";
+import { getRepository } from "typeorm";
 
 import EventosController from "../app/controllers/EventosController";
+import events from "../app/models/Eventos";
 
 const eventosRouter = Router();
 
@@ -16,6 +18,27 @@ eventosRouter.post("/", async (req, res) => {
             bio,
         });
 
+        return res.status(200).json(evento);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+eventosRouter.get("/:id", async (req, res) => {
+    try {
+        const eventosRepositorio = getRepository(events);
+        const { id } = req.params;
+        const evento = await eventosRepositorio.findOne(id);
+        return res.status(200).json(evento);
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+});
+
+eventosRouter.get("/", async (req, res) => {
+    try {
+        const eventosRepositorio = getRepository(events);
+        const evento = await eventosRepositorio.find();
         return res.status(200).json(evento);
     } catch (error) {
         res.status(400).json({ error: error.message });
