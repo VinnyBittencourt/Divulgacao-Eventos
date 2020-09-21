@@ -26,6 +26,8 @@ const Register: React.FC = () => {
             console.log(data);
             const respon = await api.post("/usuarios", data);
             console.log(respon);
+            localStorage.setItem("IdUser", respon.data.id);
+            localStorage.setItem("nameUser", respon.data.nome);
             swal(
                 "Registration complete",
                 "Thanks for using the Event Manager service!",

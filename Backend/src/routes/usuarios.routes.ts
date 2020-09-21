@@ -40,10 +40,14 @@ usuariosRouter.get("/:id", async (req, res) => {
 });
 
 usuariosRouter.delete("/:id", async (req, res) => {
-    const usuariosRepositorio = getRepository(Usuarios);
-    const { id } = req.params;
-    await usuariosRepositorio.delete(id);
-    return res.status(200).send();
+    try {
+        const usuariosRepositorio = getRepository(Usuarios);
+        const { id } = req.params;
+        await usuariosRepositorio.delete(id);
+        return res.status(200).send();
+    } catch (error) {
+        return res.status(400).json({ Error: error });
+    }
 });
 
 export default usuariosRouter;
