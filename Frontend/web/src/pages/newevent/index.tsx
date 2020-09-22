@@ -39,6 +39,7 @@ const NewEvent: React.FC = () => {
                 "Go back to the dashboard to check it out!",
                 "success"
             );
+            history.push("/dashboard");
         } catch (error) {
             console.log(error);
             swal("Ops!", "Something went wrong", "error");

@@ -1,6 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FormEvent } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { FiMapPin, FiTrash2 } from "react-icons/fi";
+import {
+    FiMapPin,
+    FiPower,
+    FiThumbsDown,
+    FiThumbsUp,
+    FiTrash2,
+} from "react-icons/fi";
 
 import api from "../../services/api";
 
@@ -36,6 +42,15 @@ const Dashboard: React.FC = () => {
         loadData();
     }, []);
 
+    useEffect(() => {
+        async function loadData(): Promise<void> {
+            const response = await api.get("/eventos");
+            setEventos(response.data);
+            console.log(response.data);
+        }
+        loadData();
+    }, [eventos]);
+
     async function handleDeleteEvent(id: string, criador: any) {
         try {
             const user = localStorage.getItem("IdUser");
@@ -67,6 +82,46 @@ const Dashboard: React.FC = () => {
         }
     }
 
+    async function handleLike(evento: string) {
+        // e.preventDefault();
+
+        const evento_id = evento;
+        const usuario_id = localStorage.getItem("IdUser");
+
+        const data = {
+            evento_id,
+            usuario_id,
+        };
+
+        try {
+            console.log(data);
+            const respon = await api.post("/likes", data);
+        } catch (error) {
+            console.log(error);
+            swal("Ops!", "Something went wrong", "error");
+        }
+    }
+
+    async function handleDislike(evento: string) {
+        // e.preventDefault();
+
+        const evento_id = evento;
+        const usuario_id = localStorage.getItem("IdUser");
+
+        const data = {
+            evento_id,
+            usuario_id,
+        };
+
+        try {
+            console.log(data);
+            const respon = await api.post("/dislikes", data);
+        } catch (error) {
+            console.log(error);
+            swal("Ops!", "Something went wrong", "error");
+        }
+    }
+
     function handleLogout() {
         localStorage.clear();
         history.push("/");
@@ -76,34 +131,57 @@ const Dashboard: React.FC = () => {
         <div className="center dashboard_container">
             <header>
                 <h1>All Events</h1>
-                <Link className="Link_event" to="/newevent">
-                    New event
-                </Link>
+                <div className="right_header">
+                    <Link className="Link_event" to="/newevent">
+                        New event
+                    </Link>
+                    <button className="quit" onClick={handleLogout}>
+                        <FiPower size={18} color="#6A2BB4"></FiPower>
+                    </button>
+                </div>
             </header>
             <div className="card_container">
-                {eventos.map((evento) => (
-                    <div className="card" key={evento.id}>
-                        <img src={imgfestival} alt={evento.name} />
-                        <h2>{evento.name}</h2>
-                        <p className="card_text">{evento.bio}</p>
-                        <div className="box-card">
-                            <FiMapPin></FiMapPin>
-                            <p>{evento.place}</p>
+                {eventos
+                    .sort((a, b) => (a.created_at < b.created_at ? 1 : -1))
+                    .map((evento) => (
+                        <div className="card" key={evento.id}>
+                            <img src={imgfestival} alt={evento.name} />
+                            <h2>{evento.name}</h2>
+                            <p className="card_text">{evento.bio}</p>
+                            <div className="box-card">
+                                <FiMapPin></FiMapPin>
+                                <p>{evento.place}</p>
+                            </div>
+                            <div className="group-likes">
+                                <button
+                                    className="like"
+                                    onClick={() => handleLike(evento.id)}
+                                >
+                                    <FiThumbsUp></FiThumbsUp> {evento.likes}{" "}
+                                    Likes
+                                </button>
+                                <button
+                                    className="dislike"
+                                    onClick={() => handleDislike(evento.id)}
+                                >
+                                    <FiThumbsDown></FiThumbsDown>{" "}
+                                    {evento.dislikes} Dislikes
+                                </button>
+                            </div>
+                            <button
+                                className="trash-ico"
+                                type="button"
+                                onClick={() =>
+                                    handleDeleteEvent(
+                                        evento.id,
+                                        evento.criador_evento_id
+                                    )
+                                }
+                            >
+                                <FiTrash2 size={15}></FiTrash2>
+                            </button>
                         </div>
-                        <button
-                            className="trash-ico"
-                            type="button"
-                            onClick={() =>
-                                handleDeleteEvent(
-                                    evento.id,
-                                    evento.criador_evento_id
-                                )
-                            }
-                        >
-                            <FiTrash2></FiTrash2>
-                        </button>
-                    </div>
-                ))}
+                    ))}
             </div>
         </div>
     );
