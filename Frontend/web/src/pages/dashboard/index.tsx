@@ -53,8 +53,7 @@ const Dashboard: React.FC = () => {
                 const respoon = await api.delete(`/eventos/${id}`, config);
                 setEventos(eventos.filter((even) => even.id !== id));
             }
-            // const respoon = await api.delete(`usuarios/${id}`, criador);
-            // console.log(respoon);
+
             if (user != criador) {
                 swal(
                     "Ops!",
