@@ -37,7 +37,8 @@ class EventosController {
 
             return eventos;
         } catch (error) {
-            throw new Error("Ops");
+            console.log(error);
+            throw new Error(error);
         }
     }
 }

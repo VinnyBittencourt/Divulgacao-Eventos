@@ -1,12 +1,16 @@
 import { Router } from "express";
 import { getRepository } from "typeorm";
+import multer from "multer";
 
 import EventosController from "../app/controllers/EventosController";
 import events from "../app/models/Eventos";
+import uploadConfig from "../config/upload";
 
 const eventosRouter = Router();
 
-eventosRouter.post("/", async (req, res) => {
+const upload = multer(uploadConfig);
+
+eventosRouter.post("/", upload.single("picture_used"), async (req, res) => {
     try {
         const { criador_evento_id, name, place, picture_used, bio } = req.body;
         const eventosController = new EventosController();
@@ -14,7 +18,7 @@ eventosRouter.post("/", async (req, res) => {
             criador_evento_id,
             name,
             place,
-            picture_used,
+            picture_used: req.file.filename,
             bio,
         });
 
