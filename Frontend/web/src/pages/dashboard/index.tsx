@@ -32,24 +32,33 @@ const Dashboard: React.FC = () => {
     const [eventos, setEventos] = useState<evento[]>([]);
 
     const history = useHistory();
+    const userJWT = localStorage.getItem("userJWT");
 
     useEffect(() => {
         async function loadData(): Promise<void> {
-            const response = await api.get("/eventos");
+            const userJWT = await localStorage.getItem("userJWT");
+            const response = await api.get("/eventos", {
+                headers: {
+                    Authorization: `Bearer ${userJWT}`,
+                },
+            });
             setEventos(response.data);
-            console.log(response.data);
         }
         loadData();
     }, []);
 
-    useEffect(() => {
-        async function loadData(): Promise<void> {
-            const response = await api.get("/eventos");
-            setEventos(response.data);
-            console.log(response.data);
-        }
-        loadData();
-    }, [eventos]);
+    // useEffect(() => {
+    //     async function loadData(): Promise<void> {
+    //         const userJWT = await localStorage.getItem("userJWT");
+    //         const response = await api.get("/eventos", {
+    //             headers: {
+    //                 Authorization: `Bearer ${userJWT}`,
+    //             },
+    //         });
+    //         setEventos(response.data);
+    //     }
+    //     loadData();
+    // }, [eventos]);
 
     async function handleDeleteEvent(id: string, criador: any) {
         try {
@@ -57,9 +66,16 @@ const Dashboard: React.FC = () => {
             console.log("user", user);
             console.log(criador);
             if (user == criador) {
+                // const config = {
+                //     data: {
+                //         usuario_logged: criador,
+                //     },
+                // };
+
                 const config = {
-                    data: {
-                        usuario_logged: criador,
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${userJWT}`,
                     },
                 };
 
@@ -95,7 +111,11 @@ const Dashboard: React.FC = () => {
 
         try {
             console.log(data);
-            const respon = await api.post("/likes", data);
+            const respon = await api.post("/likes", data, {
+                headers: {
+                    Authorization: `Bearer ${userJWT}`,
+                },
+            });
         } catch (error) {
             console.log(error);
             swal("Ops!", "Something went wrong", "error");
@@ -115,7 +135,11 @@ const Dashboard: React.FC = () => {
 
         try {
             console.log(data);
-            const respon = await api.post("/dislikes", data);
+            const respon = await api.post("/dislikes", data, {
+                headers: {
+                    Authorization: `Bearer ${userJWT}`,
+                },
+            });
         } catch (error) {
             console.log(error);
             swal("Ops!", "Something went wrong", "error");

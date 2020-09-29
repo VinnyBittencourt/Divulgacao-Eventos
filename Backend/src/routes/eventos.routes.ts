@@ -55,7 +55,7 @@ eventosRouter.get("/", async (req, res) => {
 eventosRouter.delete("/:id", async (req, res) => {
     const usuariosRepositorio = getRepository(events);
     const { id } = req.params;
-    const { usuario_logged } = req.body;
+    const usuario_logged = req.user.id;
 
     const repo = await usuariosRepositorio.findOne(id);
 
@@ -67,6 +67,8 @@ eventosRouter.delete("/:id", async (req, res) => {
         } else {
             return res.status(400).json({
                 Error: "Only the creator of the event can delete the event",
+                usuario_logged,
+                id,
             });
         }
     } else {
