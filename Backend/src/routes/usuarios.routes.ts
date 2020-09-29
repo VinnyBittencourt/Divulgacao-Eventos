@@ -3,8 +3,11 @@ import { getRepository } from "typeorm";
 
 import UsuariosController from "../app/controllers/UsuariosController";
 import Usuarios from "../app/models/Usuarios";
+import ensureAthen from "../middlewares/ensureAuthenticated";
 
 const usuariosRouter = Router();
+
+usuariosRouter.use(ensureAthen);
 
 usuariosRouter.post("/", async (req, res) => {
     try {

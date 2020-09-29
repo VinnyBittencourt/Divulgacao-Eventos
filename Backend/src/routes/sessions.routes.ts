@@ -1,5 +1,7 @@
 import { Router } from "express";
 const bcrypt = require("bcryptjs");
+import { sign } from "jsonwebtoken";
+import authConfig from "../config/auth";
 import { getRepository } from "typeorm";
 
 import Usuarios from "../app/models/Usuarios";
@@ -23,8 +25,14 @@ sessionRouter.post("/", async (req, res) => {
         if (!(await bcrypt.compare(password, user.password))) {
             return res.status(400).send({ error: "Invalid Password" });
         }
+        const token = sign({}, authConfig.jwt.secret, {
+            subject: user.id,
+            expiresIn: authConfig.jwt.expiresIn,
+        });
 
-        return res.status(200).json(user);
+        user.password = "";
+
+        return res.status(200).json({ user, token });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }

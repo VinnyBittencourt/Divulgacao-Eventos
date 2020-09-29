@@ -5,10 +5,13 @@ import multer from "multer";
 import EventosController from "../app/controllers/EventosController";
 import events from "../app/models/Eventos";
 import uploadConfig from "../config/upload";
+import ensureAthen from "../middlewares/ensureAuthenticated";
 
 const eventosRouter = Router();
 
 const upload = multer(uploadConfig);
+
+eventosRouter.use(ensureAthen);
 
 eventosRouter.post("/", upload.single("picture_used"), async (req, res) => {
     try {
