@@ -12,7 +12,7 @@ import "./styles.css";
 const NewEvent: React.FC = () => {
     const [name, setName] = useState("");
     const [place, setPlace] = useState("");
-    const [picture_used, setPicture] = useState("");
+    const [picture_used, setPicture] = useState();
     const [bio, setBio] = useState("");
 
     const history = useHistory();
@@ -21,18 +21,25 @@ const NewEvent: React.FC = () => {
         e.preventDefault();
 
         const criador_evento_id = localStorage.getItem("IdUser");
+        const userJWT = localStorage.getItem("userJWT");
 
         const data = {
             criador_evento_id,
             name,
             place,
-            picture_used,
             bio,
+            picture_used,
         };
+        // const form_data = new FormData();
+        // form_data.append("picture_used", picture_used);
 
         try {
             console.log(data);
-            const respon = await api.post("/eventos", data);
+            const respon = await api.post("/eventos", data, {
+                headers: {
+                    Authorization: `Bearer ${userJWT}`,
+                },
+            });
             console.log(respon);
             swal(
                 "New Event registration complete",
@@ -44,6 +51,11 @@ const NewEvent: React.FC = () => {
             console.log(error);
             swal("Ops!", "Something went wrong", "error");
         }
+    }
+
+    function fileSelecetedHandler(event: any) {
+        console.log(event.target.files[0]);
+        setPicture(event.target.files[0]);
     }
 
     return (
@@ -89,8 +101,7 @@ const NewEvent: React.FC = () => {
                             type="file"
                             name="pic"
                             className="file_input"
-                            value={picture_used}
-                            onChange={(e) => setPicture(e.target.value)}
+                            onChange={(e) => fileSelecetedHandler(e)}
                         />
                     </div>
                     <button type="submit">Add Event</button>
