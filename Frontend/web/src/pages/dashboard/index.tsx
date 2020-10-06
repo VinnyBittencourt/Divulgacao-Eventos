@@ -47,18 +47,18 @@ const Dashboard: React.FC = () => {
         loadData();
     }, []);
 
-    // useEffect(() => {
-    //     async function loadData(): Promise<void> {
-    //         const userJWT = await localStorage.getItem("userJWT");
-    //         const response = await api.get("/eventos", {
-    //             headers: {
-    //                 Authorization: `Bearer ${userJWT}`,
-    //             },
-    //         });
-    //         setEventos(response.data);
-    //     }
-    //     loadData();
-    // }, [eventos]);
+    useEffect(() => {
+        async function loadData(): Promise<void> {
+            const userJWT = await localStorage.getItem("userJWT");
+            const response = await api.get("/eventos", {
+                headers: {
+                    Authorization: `Bearer ${userJWT}`,
+                },
+            });
+            setEventos(response.data);
+        }
+        loadData();
+    }, [eventos]);
 
     async function handleDeleteEvent(id: string, criador: any) {
         try {

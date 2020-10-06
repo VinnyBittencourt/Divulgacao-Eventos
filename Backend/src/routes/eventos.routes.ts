@@ -67,8 +67,6 @@ eventosRouter.delete("/:id", async (req, res) => {
         } else {
             return res.status(400).json({
                 Error: "Only the creator of the event can delete the event",
-                usuario_logged,
-                id,
             });
         }
     } else {
